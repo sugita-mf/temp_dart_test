@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widget_previews.dart';
 
 void main() {
   runApp(const MyApp());
@@ -119,4 +120,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
+
+@Preview(name: 'My Home Page Preview')
+// @Preview(name: 'My Home Page Preview', group: 'Auth/Buttons')
+Widget previewMyHomePage() {
+  return const MyApp();
 }
