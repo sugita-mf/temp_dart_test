@@ -2,7 +2,11 @@
 // Dart 3.10+ Dot Shorthands Example
 // ==========================================
 
-// --- Mock Classes for Pure Dart Execution ---
+// --------------------------------------------------
+// Mock classes mimicking Flutter SDK's actual signatures
+// to allow pure Dart runtime execution.
+// --------------------------------------------------
+
 class Color {
   final int value;
   const Color(this.value);
@@ -24,13 +28,33 @@ abstract class Icons {
 
 class EdgeInsets {
   final double left, top, right, bottom;
-  const EdgeInsets.only({this.left = 0, this.top = 0, this.right = 0, this.bottom = 0});
-  static EdgeInsets all(double value) => EdgeInsets.only(left: value, top: value, right: value, bottom: value);
-  static EdgeInsets symmetric({double vertical = 0, double horizontal = 0}) =>
-      EdgeInsets.only(left: horizontal, top: vertical, right: horizontal, bottom: vertical);
+
+  const EdgeInsets.only({
+    this.left = 0,
+    this.top = 0,
+    this.right = 0,
+    this.bottom = 0,
+  });
+
+  // Defined as a 'const' constructor, mirroring the actual Flutter SDK implementation.
+  const EdgeInsets.all(double value)
+      : left = value,
+        top = value,
+        right = value,
+        bottom = value;
+
+  const EdgeInsets.symmetric({double vertical = 0, double horizontal = 0})
+      : left = horizontal,
+        top = vertical,
+        right = horizontal,
+        bottom = vertical;
+
+  static const EdgeInsets zero = EdgeInsets.only();
 }
 
-// --- Application Code ---
+// --------------------------------------------------
+// Application Code
+// --------------------------------------------------
 
 enum Status { active, inactive, pending }
 
@@ -39,14 +63,14 @@ class AppConfig {
   final EdgeInsets padding;
   final Color themeColor;
 
-  // 1. Default Arguments: Omits 'Status.active'
+  // 1. Default Arguments with Dot Shorthands
   const AppConfig({
     required this.status,
-    this.padding = .all(16.0), // Omits 'EdgeInsets.all'
+    this.padding = const .all(16.0), // Valid because EdgeInsets.all is a const constructor
     this.themeColor = const Color(0xFF0000FF),
   });
 
-  // 2. Switch Expression: Omits 'Status' prefix for enum cases
+  // 2. Switch Expression: Omits 'Status' prefix
   String get label => switch (status) {
         .active => 'System is running',
         .inactive => 'System is paused',
@@ -55,42 +79,60 @@ class AppConfig {
 }
 
 void main() {
-  // 3. Constructor Arguments: Omits 'Status.active'
+  // 3. Constructor Arguments: Omits 'Status.active' & 'EdgeInsets.symmetric'
   final config = AppConfig(
     status: .active,
-    padding: .symmetric(horizontal: 24.0), // Omits 'EdgeInsets.symmetric'
+    padding: .symmetric(horizontal: 24.0),
   );
 
-  // 4. Static Constructors / Factories: Omits 'Color.fromSeed'
-  final primaryColor = Color.fromSeed(0x123456);
-  final secondaryColor = .fromSeed(0x654321); // Context type is Color
+  // 4. Static Constructors / Factories with Explicit Context Type
+  final Color secondaryColor = .fromSeed(0x654321);
 
-  // 5. Equality Checks & Ternary Operators
+  // 5. Equality Checks & Ternary Expression
   final bool isActive = config.status == .active;
-  final String stateText = config.status == .active ? .active.name : .inactive.name;
+  final Status currentStatus = config.status == .active ? .active : .inactive;
 
   print('Label: ${config.label}');
   print('Is Active: $isActive');
-  print('State Text: $stateText');
+  print('Current Status Name: ${currentStatus.name}');
+  print('Padding Left: ${config.padding.left}');
   print('Color Hex: 0x${secondaryColor.value.toRadixString(16)}');
 
   // --------------------------------------------------
-  // ⚠️ Gotchas & Non-examples (Compile Errors)
+  // Valid usage for Colors & Icons (Correct types)
   // --------------------------------------------------
-  //
-  // Dot Shorthands resolve static members ON THE CONTEXT TYPE ITSELF.
-  //
-  // ❌ Color color = .blue;   
-  // Error: Color class has no static member 'blue' (it exists on 'Colors', not 'Color').
-  //
-  // ❌ IconData icon = .add;  
-  // Error: IconData class has no static member 'add' (it exists on 'Icons', not 'IconData').
-  //
-  // ✅ Correct usage:
   const Color validColor = Colors.blue;
   const IconData validIcon = Icons.add;
 
   print('Valid Color: ${validColor.value}');
   print('Valid Icon: ${validIcon.codePoint}');
-}
 
+  // --------------------------------------------------
+  // Gotchas & Non-examples (Compile Errors)
+  // Uncomment the lines inside these closures to test compiler behavior!
+  // --------------------------------------------------
+
+  // 1. Context Type is required when declaring with 'final'
+  final compileErrorInferType = () {
+    // ❌ Error: No type was provided to find the dot shorthand 'fromSeed'.
+    // final color = .fromSeed(0x123); 
+  };
+
+// 2. Cannot access members on non-existent types (e.g., Colors vs Color / Icons vs IconData)
+  final compileErrorMissingMemberOnColor = () {
+    // ❌ Error: The static getter 'blue' isn't defined for the type 'Color'.
+    // Reason: Dot shorthand looks for 'Color.blue' (Color vs Colors).
+    // Color color = .blue; 
+  };
+
+  final compileErrorMissingMemberOnIconData = () {
+    // ❌ Error: The static getter 'add' isn't defined for the type 'IconData'.
+    // Reason: Dot shorthand looks for 'IconData.add' (IconData vs Icons).
+    // IconData icon = .add; 
+  };
+
+  // Avoid unused variable warnings
+  compileErrorInferType;
+  compileErrorMissingMemberOnColor;
+  compileErrorMissingMemberOnIconData;
+}
