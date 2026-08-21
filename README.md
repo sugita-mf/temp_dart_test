@@ -7,7 +7,7 @@
 ```text
 .
 ├── digit_separators.dart
-├── dot_short_hands.dart
+├── dot_shorthands.dart
 ├── primary_constructor.dart
 ├── private_named_parameters.dart
 ├── README.md
