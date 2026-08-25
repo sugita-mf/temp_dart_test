@@ -1,3 +1,4 @@
+// @dart=3.6
 // ==========================================
 // Dart 3.6+ Digit Separators Example
 // ==========================================
@@ -15,7 +16,7 @@ class AppConfig {
   // Western style: 3-digit grouping (1 Million)
   static const maxCacheSize = 1_000_000;
 
-  // Japanese style: 4-digit grouping for Myriads/10,000s (100 Million = 1億)
+  // Japanese style: 4-digit grouping because the unit "Man" (Myriad) has four zeros
   static const annualTarget = 1_0000_0000;
 
   // Decimal separator: Groups fractional values for precision clarity
@@ -28,27 +29,11 @@ class AppConfig {
   // Separates each ARGB component individually (Alpha_Red_Green_Blue)
   static const secondaryColor = Color(0xFF_2F_80_ED);
 
-  // ❌ Syntax Error: '_' cannot be placed directly after '0x' or '0b'
+  // ❌ Syntax Error: '_' cannot be placed directly after '0x'
   // static const badColor = Color(0x_FF_2F_80_ED);
 
   // Bitmask / Hex representation: 16-bit boundary grouping
   static const systemBitmask = 0xDEAD_BEEF;
-
-  // 3. Binary Literals
-  // Bit flags: 4-bit (1 nibble) boundary grouping for high readability
-  static const systemFlags = 0b0000_1010_1111_0001;
-
-  // ❌ Syntax Error: '_' cannot be placed directly after '0b'
-  // static const badBinaryFlags = 0b_0000_1010_1111_0001;
-
-  // ✕ Bad readability: Arbitrary / inconsistent grouping (Valid syntax, but hard to read)
-  static const irregularBinaryFlags = 0b0_0001_01011_1100_01;
-
-  // 〇 Good: 4-bit (1 nibble) boundary grouping
-  static const nibbleGroupedFlags = 0b0000_1010_1111_0001;
-
-  // 〇 Good: 8-bit (1 byte) boundary grouping
-  static const byteGroupedFlags = 0b00001010_11110001;
 }
 
 void main() {
@@ -62,12 +47,6 @@ void main() {
   final color2 = AppConfig.secondaryColor;
   final mask = AppConfig.systemBitmask;
 
-  // 3. Binary Literals
-  final flags = AppConfig.systemFlags;
-  final irregularFlags = AppConfig.irregularBinaryFlags;
-  final nibbleFlags = AppConfig.nibbleGroupedFlags;
-  final byteFlags = AppConfig.byteGroupedFlags;
-
   print('=== 1. Numbers ===');
   print('Max Cache Size: $limit');
   print('Annual Target: $target');
@@ -77,10 +56,4 @@ void main() {
   print('Primary Color: 0x${color1.value.toRadixString(16).toUpperCase()}');
   print('Secondary Color: 0x${color2.value.toRadixString(16).toUpperCase()}');
   print('Bitmask: 0x${mask.toRadixString(16).toUpperCase()}');
-
-  print('\n=== 3. Binary Literals ===');
-  print('System Flags: 0b${flags.toRadixString(2).padLeft(16, '0')} ($flags)');
-  print('Irregular Flags (Evaluates same): 0b${irregularFlags.toRadixString(2).padLeft(16, '0')} ($irregularFlags)');
-  print('Nibble Grouped: 0b${nibbleFlags.toRadixString(2).padLeft(16, '0')} ($nibbleFlags)');
-  print('Byte Grouped: 0b${byteFlags.toRadixString(2).padLeft(16, '0')} ($byteFlags)');
 }
