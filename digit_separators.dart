@@ -38,6 +38,9 @@ class AppConfig {
   // Bit flags: 4-bit (1 nibble) boundary grouping for high readability
   static const systemFlags = 0b0000_1010_1111_0001;
 
+  // ❌ Syntax Error: '_' cannot be placed directly after '0b'
+  // static const badBinaryFlags = 0b_0000_1010_1111_0001;
+
   // ✕ Bad readability: Arbitrary / inconsistent grouping (Valid syntax, but hard to read)
   static const irregularBinaryFlags = 0b0_0001_01011_1100_01;
 
