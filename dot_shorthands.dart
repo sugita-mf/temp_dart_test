@@ -49,7 +49,8 @@ class EdgeInsets {
         right = horizontal,
         bottom = vertical;
 
-  static const EdgeInsets zero = EdgeInsets.only();
+  // static const EdgeInsets zero = EdgeInsets.only();
+  static const EdgeInsets zero = .only();
 }
 
 // --------------------------------------------------
