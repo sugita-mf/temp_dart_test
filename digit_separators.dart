@@ -8,7 +8,7 @@ class Color {
   const Color(this.value);
 }
 
-// ✅ Improves readability for large numbers and hex literals
+// ✅ Improves readability for large numbers, hex, and binary literals
 // Underscores '_' are ignored by the compiler and used purely for visual clarity.
 class AppConfig {
   // 1. Numbers (Integers & Decimals)
@@ -28,34 +28,56 @@ class AppConfig {
   // Separates each ARGB component individually (Alpha_Red_Green_Blue)
   static const secondaryColor = Color(0xFF_2F_80_ED);
 
-  // Bitmask / Binary representation (Hex): 16-bit boundary grouping
+  // ❌ Syntax Error: '_' cannot be placed directly after '0x' or '0b'
+  // static const badColor = Color(0x_FF_2F_80_ED);
+
+  // Bitmask / Hex representation: 16-bit boundary grouping
   static const systemBitmask = 0xDEAD_BEEF;
 
-  // ❌ Error: Digit separators ('_') in a number literal can only be placed between two digits.
-  // static const badColor = Color(0x_FF_2F_80_ED);
+  // 3. Binary Literals
+  // Bit flags: 4-bit (1 nibble) boundary grouping for high readability
+  static const systemFlags = 0b0000_1010_1111_0001;
+
+  // ✕ Bad readability: Arbitrary / inconsistent grouping (Valid syntax, but hard to read)
+  static const irregularBinaryFlags = 0b0_0001_01011_1100_01;
+
+  // 〇 Good: 4-bit (1 nibble) boundary grouping
+  static const nibbleGroupedFlags = 0b0000_1010_1111_0001;
+
+  // 〇 Good: 8-bit (1 byte) boundary grouping
+  static const byteGroupedFlags = 0b00001010_11110001;
 }
 
 void main() {
-  // Evaluates identically to 1000000
+  // 1. Numbers
   final limit = AppConfig.maxCacheSize;
-
-  // Evaluates identically to 100000000
   final target = AppConfig.annualTarget;
-
-  // Evaluates identically to 0.000001
   final ratio = AppConfig.microSecondRatio;
 
-  // Evaluates identically to 0xFF2F80ED
+  // 2. Hex Literals & Colors
   final color1 = AppConfig.primaryColor;
   final color2 = AppConfig.secondaryColor;
-
-  // Evaluates identically to 0xDEADBEEF (3735928559)
   final mask = AppConfig.systemBitmask;
 
+  // 3. Binary Literals
+  final flags = AppConfig.systemFlags;
+  final irregularFlags = AppConfig.irregularBinaryFlags;
+  final nibbleFlags = AppConfig.nibbleGroupedFlags;
+  final byteFlags = AppConfig.byteGroupedFlags;
+
+  print('=== 1. Numbers ===');
   print('Max Cache Size: $limit');
   print('Annual Target: $target');
   print('Microsecond Ratio: $ratio');
+
+  print('\n=== 2. Hex Literals & Colors ===');
   print('Primary Color: 0x${color1.value.toRadixString(16).toUpperCase()}');
   print('Secondary Color: 0x${color2.value.toRadixString(16).toUpperCase()}');
   print('Bitmask: 0x${mask.toRadixString(16).toUpperCase()}');
+
+  print('\n=== 3. Binary Literals ===');
+  print('System Flags: 0b${flags.toRadixString(2).padLeft(16, '0')} ($flags)');
+  print('Irregular Flags (Evaluates same): 0b${irregularFlags.toRadixString(2).padLeft(16, '0')} ($irregularFlags)');
+  print('Nibble Grouped: 0b${nibbleFlags.toRadixString(2).padLeft(16, '0')} ($nibbleFlags)');
+  print('Byte Grouped: 0b${byteFlags.toRadixString(2).padLeft(16, '0')} ($byteFlags)');
 }
