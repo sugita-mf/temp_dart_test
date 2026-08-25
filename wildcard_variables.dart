@@ -14,6 +14,13 @@ void main() {
     print('Event triggered without using parameter values.');
   }
 
+  // Legacy style:
+  // Since '_' was treated as a normal variable name, each unused parameter 
+  // required a unique name (_ , __ , ___ , ____).
+  void handleEventLegacy(String _, String __, String ___, String ____) {
+    print('Event triggered (Legacy style)');
+  }
+
   handleEvent('click_event', 'button_id');
 
   // 3. Ignored Loop Index
