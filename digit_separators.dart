@@ -33,6 +33,7 @@ class AppConfig {
   // static const badColor = Color(0x_FF_2F_80_ED);
 
   // Bitmask / Hex representation: 16-bit boundary grouping
+  // Bluetooth (UUID/Battery), NFC (IC card data), and Network programming (Port numbers).
   static const systemBitmask = 0xDEAD_BEEF;
 }
 
