@@ -98,8 +98,8 @@ void main() {
   );
 
   // 4. Static Constructors / Factories with Explicit Context Type
-  final Color secondaryColor = Color.fromSeed(0x654321);
-  // final Color secondaryColor = .fromSeed(0x654321);
+  // final Color secondaryColor = Color.fromSeed(0x654321);
+  final Color secondaryColor = .fromSeed(0x654321);
 
   // 5. Equality Checks & Ternary Expression
   // final bool isActive = config.status == Status.active;
