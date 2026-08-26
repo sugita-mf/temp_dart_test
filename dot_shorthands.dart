@@ -72,6 +72,11 @@ class AppConfig {
   });
 
   // 2. Switch Expression: Omits 'Status' prefix
+  // String get label => switch (status) {
+  //       Status.active => 'System is running',
+  //       Status.inactive => 'System is paused',
+  //       Status.pending => 'System is initializing',
+  //     };
   String get label => switch (status) {
         .active => 'System is running',
         .inactive => 'System is paused',
@@ -81,6 +86,10 @@ class AppConfig {
 
 void main() {
   // 3. Constructor Arguments: Omits 'Status.active' & 'EdgeInsets.symmetric'
+  // final config = AppConfig(
+  //   status: Status.active,
+  //   padding: EdgeInsets.symmetric(horizontal: 24.0),
+  // );
   final config = AppConfig(
     status: .active,
     padding: .symmetric(horizontal: 24.0),
