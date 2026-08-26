@@ -110,30 +110,23 @@ void main() {
 
   // --------------------------------------------------
   // Gotchas & Non-examples (Compile Errors)
-  // Uncomment the lines inside these closures to test compiler behavior!
   // --------------------------------------------------
 
-  // 1. Context Type is required when declaring with 'final'
-  final compileErrorInferType = () {
-    // ❌ Error: No type was provided to find the dot shorthand 'fromSeed'.
-    // final color = .fromSeed(0x123); 
-  };
+  // Gotcha 1: Context Type is required when declaring with 'final'
+  // ❌
+  // final color1 = .fromSeed(0x123);
+  // ⭕️ 
+  // final Color color1 = .fromSeed(0x123);
 
-// 2. Cannot access members on non-existent types (e.g., Colors vs Color / Icons vs IconData)
-  final compileErrorMissingMemberOnColor = () {
-    // ❌ Error: The static getter 'blue' isn't defined for the type 'Color'.
-    // Reason: Dot shorthand looks for 'Color.blue' (Color vs Colors).
-    // Color color = .blue; 
-  };
+  // Gotcha 2: Static member 'blue' isn't defined for type 'Color' (Use Colors.blue)
+  // ❌
+  // Color color2 = .blue; 
+  // ⭕️ 
+  // Color color2 = Colors.blue;
 
-  final compileErrorMissingMemberOnIconData = () {
-    // ❌ Error: The static getter 'add' isn't defined for the type 'IconData'.
-    // Reason: Dot shorthand looks for 'IconData.add' (IconData vs Icons).
-    // IconData icon = .add; 
-  };
-
-  // Avoid unused variable warnings
-  compileErrorInferType;
-  compileErrorMissingMemberOnColor;
-  compileErrorMissingMemberOnIconData;
+  // Gotcha 3: Static member 'add' isn't defined for type 'IconData' (Use Icons.add)
+  // ❌
+  // IconData icon3 = .add;
+  // ⭕️
+  // IconData icon3 = Icons.add;
 }
