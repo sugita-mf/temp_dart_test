@@ -9,6 +9,9 @@ class MyWidget {
   MyWidget({required this._id});
 }
 
+// Private Named Parameter + Primary Constructor(Dart 3.13)
+// class MyWidget({required final String _id});
+
 void main() {
   // Call using public parameter name 'id:' (WITHOUT leading underscore)
   final widget = MyWidget(id: 'widget_123');
