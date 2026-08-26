@@ -67,7 +67,9 @@ class AppConfig {
   // 1. Default Arguments with Dot Shorthands
   const AppConfig({
     required this.status,
-    this.padding = const .all(16.0), // Valid because EdgeInsets.all is a const constructor
+    // Const constructor
+    // this.padding = const EdgeInsets.all(16.0),
+    this.padding = const .all(16.0),
     this.themeColor = const Color(0xFF0000FF),
   });
 
@@ -96,10 +98,13 @@ void main() {
   );
 
   // 4. Static Constructors / Factories with Explicit Context Type
-  final Color secondaryColor = .fromSeed(0x654321);
+  final Color secondaryColor = Color.fromSeed(0x654321);
+  // final Color secondaryColor = .fromSeed(0x654321);
 
   // 5. Equality Checks & Ternary Expression
+  // final bool isActive = config.status == Status.active;
   final bool isActive = config.status == .active;
+  // final Status currentStatus = config.status == Status.active ? Status.active : Status.inactive;
   final Status currentStatus = config.status == .active ? .active : .inactive;
 
   print('Label: ${config.label}');
