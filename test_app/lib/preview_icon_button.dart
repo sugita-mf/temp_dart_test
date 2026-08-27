@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
 
-
 // light mode
 Widget lightThemeWrapper(Widget child) {
   return MaterialApp(
     theme: ThemeData.light(useMaterial3: true),
-    home: Scaffold(
-      body: Center(child: child),
-    ),
+    home: Scaffold(body: Center(child: child)),
   );
 }
 
@@ -16,9 +13,7 @@ Widget lightThemeWrapper(Widget child) {
 Widget darkThemeWrapper(Widget child) {
   return MaterialApp(
     theme: ThemeData.dark(useMaterial3: true),
-    home: Scaffold(
-      body: Center(child: child),
-    ),
+    home: Scaffold(body: Center(child: child)),
   );
 }
 
@@ -30,18 +25,17 @@ Widget darkThemeWrapper(Widget child) {
 Widget _darkThemeWrapper(Widget child) {
   return MaterialApp(
     theme: ThemeData.dark(useMaterial3: true),
-    home: Scaffold(
-      body: Center(child: child),
-    ),
+    home: Scaffold(body: Center(child: child)),
   );
 }
 
 // Custom icon button (Single Widget)
-@Preview(name: 'Icon Button Only',
-  // widget size
+@Preview(
+  name: 'Icon Button Only',
+  // [widget size]
   // width: 200.0,
   // height: 100.0,
-  // preview frame size
+  // [preview frame size]
   // size: Size(300.0, 100.0),
   // wrapper: lightThemeWrapper,
   // wrapper: darkThemeWrapper,
