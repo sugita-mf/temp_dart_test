@@ -32,9 +32,6 @@ Widget _darkThemeWrapper(Widget child) {
 // Custom icon button (Single Widget)
 @Preview(
   name: 'Icon Button Only',
-  // [widget size]
-  // width: 200.0,
-  // height: 100.0,
   // [preview frame size]
   // size: Size(300.0, 100.0),
   // wrapper: lightThemeWrapper,
