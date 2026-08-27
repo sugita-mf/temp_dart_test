@@ -64,21 +64,21 @@ class AppConfig {
   final EdgeInsets padding;
   final Color themeColor;
 
-  // 1. Default Arguments with Dot Shorthands
+  // 1. Default Parameter Values (Infers types from field declarations)
   const AppConfig({
     required this.status,
     // Const constructor
     // this.padding = const EdgeInsets.all(16.0),
-    this.padding = const .all(16.0),
+    this.padding = const.all(16.0),
     this.themeColor = const Color(0xFF0000FF),
   });
 
-  // 2. Switch Expression: Omits 'Status' prefix
+  // 2. Switch Expressions (Infers 'Status' from the target expression)
   // String get label => switch (status) {
-  //       Status.active => 'System is running',
-  //       Status.inactive => 'System is paused',
-  //       Status.pending => 'System is initializing',
-  //     };
+  //        Status.active => 'System is running',
+  //        Status.inactive => 'System is paused',
+  //        Status.pending => 'System is initializing',
+  //      };
   String get label => switch (status) {
         .active => 'System is running',
         .inactive => 'System is paused',
@@ -87,21 +87,21 @@ class AppConfig {
 }
 
 void main() {
-  // 3. Constructor Arguments: Omits 'Status.active' & 'EdgeInsets.symmetric'
+  // 3. Function / Constructor Arguments (Infers types from parameter signatures)
   // final config = AppConfig(
-  //   status: Status.active,
-  //   padding: EdgeInsets.symmetric(horizontal: 24.0),
+  //    status: Status.active,
+  //    padding: EdgeInsets.symmetric(horizontal: 24.0),
   // );
   final config = AppConfig(
     status: .active,
     padding: .symmetric(horizontal: 24.0),
   );
 
-  // 4. Static Constructors / Factories with Explicit Context Type
+  // 4. Variable Declarations with Explicit Types (Infers type from LHS declaration)
   // final Color secondaryColor = Color.fromSeed(0x654321);
   final Color secondaryColor = .fromSeed(0x654321);
 
-  // 5. Equality Checks & Ternary Expression
+  // 5. Operators (Equality Checks & Ternary Expressions)
   // final bool isActive = config.status == Status.active;
   final bool isActive = config.status == .active;
   // final Status currentStatus = config.status == Status.active ? Status.active : Status.inactive;
@@ -123,22 +123,22 @@ void main() {
   print('Valid Icon: ${validIcon.codePoint}');
 
   // --------------------------------------------------
-  // Gotchas & Non-examples (Compile Errors)
+  // Gotchas & Counterexamples (Compilation Errors)
   // --------------------------------------------------
 
-  // Gotcha 1: Context Type is required when declaring with 'final'
+  // Gotcha 1: Context type cannot be inferred without an explicit variable type
   // ❌
   // final color1 = .fromSeed(0x123);
   // ⭕️ 
   // final Color color1 = .fromSeed(0x123);
 
-  // Gotcha 2: Static member 'blue' isn't defined for type 'Color' (Use Colors.blue)
+  // Gotcha 2: 'blue' is a member of 'Colors', not defined on the 'Color' type
   // ❌
   // Color color2 = .blue; 
   // ⭕️ 
   // Color color2 = Colors.blue;
 
-  // Gotcha 3: Static member 'add' isn't defined for type 'IconData' (Use Icons.add)
+  // Gotcha 3: 'add' is a member of 'Icons', not defined on the 'IconData' type
   // ❌
   // IconData icon3 = .add;
   // ⭕️
