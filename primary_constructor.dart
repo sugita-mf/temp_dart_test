@@ -13,6 +13,18 @@ class UserWithoutFinalParam(String name, int age);
 //   final String name = rawName; 
 // }
 
+// ⭕️ 3. User3: With methods and getters accessing parameters
+class User3(final String name, final int age) {
+
+  // Accessible from inside class methods!
+  void introduce() {
+    print('Hello, I am $name, $age years old.');
+  }
+
+  // Also accessible from getters or computed properties
+  bool get isAdult => age >= 18;
+}
+
 void main() {
   // --- Case 1: With 'final' ---
   final user1 = UserWithFinalParam('Alice', 25);
@@ -24,4 +36,8 @@ void main() {
   
   // Compile error: The getter 'name' isn't defined for the class 'UserWithoutFinalParam'
   // print(user2.name); 
+
+  // --- Case 3: User3 ---
+  final user3 = User3('Charlie', 20);
+  user3.introduce(); // ⭕️ Accessible from internal methods!
 }
