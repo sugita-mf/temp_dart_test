@@ -9,10 +9,6 @@ void main() {
   print('User ID: $userId');
 
   // 2. Multiple Wildcard Parameters in Functions/Callbacks
-  // Multiple '_' parameters no longer cause duplicate name compilation errors
-  void handleEvent(String _, String _) {
-    print('Event triggered without using parameter values.');
-  }
 
   // Legacy style:
   // Since '_' was treated as a normal variable name, each unused parameter 
@@ -21,7 +17,15 @@ void main() {
     print('Event triggered (Legacy style)');
   }
 
-  handleEvent('click_event', 'button_id');
+  handleEventLegacy('foo', 'bar', 'hoge', 'fuga');
+
+  // Modern style:
+  // Multiple '_' parameters no longer cause duplicate name compilation errors
+  void handleEventModern(String _, String _, String _, String _) {
+    print('Event triggered (Modern style)');
+  }
+
+  handleEventModern('foo', 'bar', 'hoge', 'fuga');
 
   // 3. Ignored Loop Index
   // Use '_' when the current element or iteration index is not needed
