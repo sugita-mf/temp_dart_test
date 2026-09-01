@@ -69,7 +69,9 @@ class AppConfig {
     required this.status,
     // Const constructor
     // this.padding = const EdgeInsets.all(16.0),
-    this.padding = const.all(16.0),
+    this.padding = const .all(16.0),
+    // It actually works without a space, like
+    // this.padding = const.all(16.0),
     this.themeColor = const Color(0xFF0000FF),
   });
 
