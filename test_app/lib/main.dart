@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
+import 'package:test_app/ui_test_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -110,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            UITestWidget(),
           ],
         ),
       ),
