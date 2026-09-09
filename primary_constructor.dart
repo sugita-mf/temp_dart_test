@@ -10,7 +10,9 @@ class UserWithFinalParam(final String name, final int age);
 // NOT stored as properties, so inaccessible from outside
 class UserWithoutFinalParam(String name, int age);
 // class UserWithoutFinalParam(String rawName, int age) {
-//   final String name = rawName; 
+//    final String name = rawName; 
+//    // ❌ Compile error: 'name' isn't defined for the class
+//    // String get name => rawName;
 // }
 
 // ⭕️ 3. User3: With methods and getters accessing parameters
@@ -23,6 +25,11 @@ class User3(final String name, final int age) {
 
   // Also accessible from getters or computed properties
   bool get isAdult => age >= 18;
+
+  // ❌ Cannot define a setter (final parameters are immutable)
+  // set setAge(int value) {
+  //   age = value; // ❌ Compile error: The final variable 'age' can't be set.
+  // }
 }
 
 void main() {
@@ -39,5 +46,7 @@ void main() {
 
   // --- Case 3: User3 ---
   final user3 = User3('Charlie', 20);
-  user3.introduce(); // ⭕️ Accessible from internal methods!
+  user3.introduce(); // ⭕️ Accessible!
+  // user3.setAge = 100; // ❌ Compile error
+  print(user3.isAdult); // ⭕️ Accessible!
 }
